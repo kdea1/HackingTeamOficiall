@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blog de hacking ético y ciberseguridad. Aprende herramientas, comandos, guías y mucho más." />
+  <title>Exploit Zone - Blog de Hacking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<!-- Contador de Visitas y Redes Sociales -->
+<div id="visit-social-box" style="margin-top: 20px; padding: 15px; border: 2px dashed rgba(255,255,255,0.3); border-radius: 10px; background: rgba(0, 0, 0, 0.6); text-align: center; color: #fff; backdrop-filter: blur(3px);">
+  <p style="font-size: 18px;">👀 Visitas: <span id="visit-count">0</span></p>
+  <p style="font-size: 16px;">📲 ¡Síguenos en nuestras redes!</p>
+  <div class="social-icons" style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+    <a href="https://www.tiktok.com/@exploitzone" target="_blank" title="TikTok">
+      <img src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" alt="TikTok" width="32" height="32">
+    </a>
+    <a href="https://www.youtube.com/@exploitzone" target="_blank" title="YouTube">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384062.png" alt="YouTube" width="32" height="32">
+    </a>
+    <a href="https://www.instagram.com/exploitzone" target="_blank" title="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/2504/2504917.png" alt="Instagram" width="32" height="32">
+    </a>
+    <a href="https://x.com/exploitzone" target="_blank" title="X / Twitter">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968958.png" alt="Twitter/X" width="32" height="32" style="filter: brightness(0) invert(1);">
+    </a>
+  </div>
+</div>
+
+<style>
+  .social-icons a img {
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .social-icons a:hover img {
+    transform: scale(1.2);
+    filter: brightness(1.5);
+  }
+</style>
+
+<script>
+  // Contador de visitas usando localStorage
+  let visits = localStorage.getItem('visitCount');
+  visits = visits ? parseInt(visits) + 1 : 1;
+  localStorage.setItem('visitCount', visits);
+  document.getElementById('visit-count').innerText = visits;
+</script>
+
+
+
+
+  <!-- TinyMCE CDN -->
+  <script src="https://cdn.tiny.cloud/1/p626uyxbphehqjboa9wm86ws7kd8eby18ccc6vt17hv51vvd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+  <style>
+    :root {
+      --bg-color: #0e0e0e;
+      --text-color: #00ff88;
+      --border-color: #00ff88;
+      --hover-bg: #111;
+    }
+    [data-theme="light"] {
+      --bg-color: #f4f4f4;
+      --text-color: #0e0e0e;
+      --border-color: #333;
+      --hover-bg: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', monospace;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 2rem;
+      background-image: radial-gradient(circle at 1px 1px, var(--text-color) 1px, transparent 0);
+      background-size: 20px 20px;
+      animation: dots 10s linear infinite;
+    }
+
+    @keyframes dots {
+      from { background-position: 0 0; }
+      to { background-position: 100px 100px; }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      border-bottom: 2px solid var(--border-color);
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 1.2rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+
+    .posts {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .post {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      transition: background 0.3s ease;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .post:hover {
+      background: var(--hover-bg);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tiktok-share {
+      margin-top: 1rem;
+      display: inline-block;
+      background-color: #ff0050;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .tiktok-share:hover {
+      background-color: #cc0040;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: var(--text-color);
+    }
+
+    #theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: 2px solid var(--text-color);
+      color: var(--text-color);
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      z-index: 1000;
+    }
+
+    .editor-container {
+      margin-top: 2rem;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+    }
+
+    #publish-button {
+      background-color: #00ff88;
+      border: none;
+      padding: 10px 20px;
+      color: #000;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+
+    #publish-button:hover {
+      background-color: #00cc66;
+    }
+
+    #post-title {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body>
+  <button id="theme-toggle"><i class="fas fa-adjust"></i> Cambiar tema</button>
+  <header>
+    <h1>🌐 💻 HackingTeamOficial</h1>
+    <p>Blog de Hacking Ético y Ciberseguridad</p>
+  </header>
+
+  <nav>
+    <a href="#inicio"><i class="fas fa-terminal"></i> Inicio</a>
+    <a href="#blog"><i class="fas fa-book"></i> Blog</a>
+    <a href="#sobre"><i class="fas fa-user-secret"></i> Sobre mí</a>
+    <a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a>
+  </nav>
+
+  <section class="intro" id="inicio">
+    <p>> Aprende Hacking Ético, técnicas de pentesting y cómo protegerte online.</p>
+    <p>> Publicaciones semanales con herramientas, comandos y noticias.</p>
+  </section>
+
+  <section class="posts" id="blog">
+    <div class="post">
+      <h3>🔐 ¿Qué es el Hacking Ético?</h3>
+      <p>Descubre qué hace un hacker ético y cómo empezar en este mundo legal y profesional.</p>
+      <a class="tiktok-share" href="https://tiktok.com/@exploitzone" target="_blank">Compartir en TikTok</a>
+    </div>
+    <div class="post">
+      <h3>🧠 Top 10 comandos básicos en Windows y Kali</h3>
+      <p>Una guía rápida de comandos esenciales para hacking y seguridad desde la consola.</p>
+      <a class="tiktok-share" href="https://tiktok.com/@exploitzone" target="_blank">Compartir en TikTok</a>
+    </div>
+    <div class="post">
+      <h3>📱 Cómo se vulneran redes WiFi comunes</h3>
+      <p>Conceptos básicos y recomendaciones de protección para tu red doméstica.</p>
+      <a class="tiktok-share" href="https://tiktok.com/@exploitzone" target="_blank">Compartir en TikTok</a>
+    </div>
+  </section>
+
+  <section class="editor-container">
+    <h2>Publicar un nuevo post</h2>
+    <input type="text" id="post-title" placeholder="Título del post" />
+    <textarea id="editor"></textarea>
+    <button id="publish-button">Publicar</button>
+  </section>
+
+  <section class="intro" id="sobre">
+    <h2>Sobre mí</h2>
+    <p>Soy un entusiasta de la ciberseguridad y el hacking ético. En este blog comparto lo que aprendo, pruebo y recomiendo para que todos podamos navegar de forma más segura y con conocimiento real.</p>
+  </section>
+
+  <section class="intro" id="contacto">
+    <h2>Contacto</h2>
+    <p>📬 Puedes escribirme a: <a href="mailto:contacto@exploitzone.com" style="color:var(--text-color);">contacto@exploitzone.com</a></p>
+    <p>📱 TikTok: <a href="https://tiktok.com/@exploitzone" target="_blank" style="color:var(--text-color);">@exploitzone</a></p>
+    <p>💬 Telegram: <a href="https://t.me/exploitzone" target="_blank" style="color:var(--text-color);">@exploitzone</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Exploit Zone. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+  // Activar el editor TinyMCE con funcionalidad para insertar imágenes y videos
+  tinymce.init({
+    selector: '#editor',
+    plugins: ['image', 'media', 'link', 'lists', 'table', 'advlist', 'autolink'],
+    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | link image media | bullist numlist | table',
+    height: 300,
+    media_live_embeds: true,
+    file_picker_types: 'image,media',  // Permite seleccionar imagen y video
+    file_picker_callback: function(callback, value, meta) {
+      if (meta.filetype == 'image') {
+        // Lógica para elegir una imagen desde tu computadora
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = function() {
+          const file = input.files[0];
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            callback(e.target.result, { alt: file.name });
+          };
+          reader.readAsDataURL(file);
+        };
+      } else if (meta.filetype == 'media') {
+        // Lógica para insertar un video
+        const url = prompt("Introduce la URL del video:");
+        if (url) {
+          callback(url);  // Insertar el video con la URL proporcionada
+        }
+      }
+    }
+  });
+
+  // Función para publicar un nuevo post
+  document.getElementById('publish-button').addEventListener('click', () => {
+    const title = document.getElementById('post-title').value.trim();
+    const content = tinymce.get('editor').getContent().trim();
+
+    if (!title || !content) {
+      alert('Por favor, escribe un título y contenido para el post.');
+      return;
+    }
+
+    const postSection = document.querySelector('.posts');
+    const newPost = document.createElement('div');
+    newPost.classList.add('post');
+    newPost.innerHTML = `
+      <h3>${title}</h3>
+      <div>${content}</div>
+      <a class="tiktok-share" href="https://tiktok.com/@exploitzone" target="_blank">Compartir en TikTok</a>
+    `;
+    postSection.prepend(newPost);
+
+    // Limpiar campos
+    document.getElementById('post-title').value = '';
+    tinymce.get('editor').setContent('');
+    alert('✅ ¡Post publicado!');
+  });
+</script>
+
